@@ -1,3 +1,4 @@
+import { useFormState } from "react-dom";
 import {
   Input,
   Button,
@@ -21,6 +22,7 @@ export default function TopicCreateForm() {
               <h3 className="font-bold text-lg p-2">Create New Topic</h3>
               <div className="">
                 <Input
+                  name="name"
                   label="Name"
                   labelPlacement="outside"
                   placeholder="Name"
@@ -29,6 +31,7 @@ export default function TopicCreateForm() {
 
               <div className="">
                 <Textarea
+                  name="description"
                   label="Description"
                   labelPlacement="outside"
                   placeholder="Describe your topic"

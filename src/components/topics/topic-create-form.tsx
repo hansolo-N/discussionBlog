@@ -1,3 +1,4 @@
+"use client ";
 import { useFormState } from "react-dom";
 import {
   Input,
@@ -10,6 +11,9 @@ import {
 import * as actions from "@/actions";
 
 export default function TopicCreateForm() {
+  const [formState, action] = useFormState(actions.createTopic, {
+    errors: {},
+  });
   return (
     <div>
       <Popover placement="left">
@@ -17,7 +21,7 @@ export default function TopicCreateForm() {
           <Button color="primary">New Topic </Button>
         </PopoverTrigger>
         <PopoverContent>
-          <form action={actions.createTopic}>
+          <form action={action}>
             <div className="flex flex-col gap-4 p-4 w-80">
               <h3 className="font-bold text-lg p-2">Create New Topic</h3>
               <div className="">
@@ -26,6 +30,8 @@ export default function TopicCreateForm() {
                   label="Name"
                   labelPlacement="outside"
                   placeholder="Name"
+                  isInvalid={!!formState.errors.name}
+                  errorMessage={formState.errors.name?.join(", ")}
                 />
               </div>
 
@@ -35,9 +41,14 @@ export default function TopicCreateForm() {
                   label="Description"
                   labelPlacement="outside"
                   placeholder="Describe your topic"
+                  isInvalid={!!formState.errors.description}
+                  errorMessage={formState.errors.description?.join(", ")}
                 />
               </div>
 
+              {formState.errors._form ? (
+                <div>{formState.errors._form?.join(", ")}</div>
+              ) : null}
               <Button type="submit">Submit</Button>
             </div>
           </form>

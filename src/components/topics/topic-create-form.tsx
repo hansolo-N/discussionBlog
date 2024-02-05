@@ -47,7 +47,9 @@ export default function TopicCreateForm() {
               </div>
 
               {formState.errors._form ? (
-                <div>{formState.errors._form?.join(", ")}</div>
+                <div className="p-2 bg-red-200 border border-red-400">
+                  {formState.errors._form?.join(", ")}
+                </div>
               ) : null}
               <Button type="submit">Submit</Button>
             </div>

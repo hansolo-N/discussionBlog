@@ -10,12 +10,18 @@ import {
 } from "@nextui-org/react";
 import * as actions from "@/actions";
 import FormButton from "../common/form-button";
-import { useSession } from "next-auth/react";
 
-export default function CreatePostForm() {
-  const [formState, action] = useFormState(actions.createPost, {
-    errors: {},
-  });
+interface createPostFormProps {
+  slug: string;
+}
+
+export default function CreatePostForm({ slug }: createPostFormProps) {
+  const [formState, action] = useFormState(
+    actions.createPost.bind(null, slug),
+    {
+      errors: {},
+    }
+  );
 
   return (
     <Popover placement="left">

@@ -1,11 +1,27 @@
-interface CurrentPostProps {
+import Link from "next/link";
+import PostShow from "@/components/posts/post-show";
+import CommentList from "@/components/comments/comment-list";
+import CommentCreateForm from "@/components/comments/comment-create-form";
+import paths from "@/paths";
+
+interface PostShowPageProps {
   params: {
-    postid: string;
+    slug: string;
+    postId: string;
   };
 }
 
-export default function showCurrentPost({
-  params: { postid },
-}: CurrentPostProps) {
-  return <div>current post id: {postid}</div>;
+export default async function PostShowPage({ params }: PostShowPageProps) {
+  const { slug, postId } = params;
+
+  return (
+    <div className="space-y-3">
+      <Link className="underline decoration-solid" href={paths.topicShow(slug)}>
+        {"< "}Back to {slug}
+      </Link>
+      {/* <PostShow /> */}
+      {/* <CommentCreateForm postId={postId} startOpen /> */}
+      {/* <CommentList comments={comments} /> */}
+    </div>
+  );
 }

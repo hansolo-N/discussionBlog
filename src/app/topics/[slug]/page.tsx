@@ -14,7 +14,7 @@ export default function TopicPage({ params }: TopicPageProps) {
         <h1 className="text-2xl- font-bold mb-2">{slug}</h1>
       </div>
       <div>
-        <CreatePostForm />
+        <CreatePostForm slug={slug} />
       </div>
     </div>
   );

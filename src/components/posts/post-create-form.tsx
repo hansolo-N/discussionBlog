@@ -10,6 +10,7 @@ import {
 } from "@nextui-org/react";
 import * as actions from "@/actions";
 import FormButton from "../common/form-button";
+import { useSession } from "next-auth/react";
 
 export default function CreatePostForm() {
   const [formState, action] = useFormState(actions.createPost, {
@@ -41,6 +42,12 @@ export default function CreatePostForm() {
               placeholder="content"
               labelPlacement="outside"
             />
+            {formState.errors._form ? (
+              <div className="rounded p-2 bg-red-200 border border-red-200">
+                {formState.errors._form.join(", ")}
+              </div>
+            ) : null}
+
             <FormButton>Create Post</FormButton>
           </div>
         </form>

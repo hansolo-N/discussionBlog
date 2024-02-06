@@ -1,10 +1,8 @@
-import type { Post } from "@prisma/client";
-import { db } from "..";
+import type { Post } from '@prisma/client';
+import { db } from '@/db';
 
 export type PostWithData = Post & {
-  topic: {
-    slug: string;
-  };
+  topic: { slug: string };
   user: { name: string | null };
   _count: { comments: number };
 };

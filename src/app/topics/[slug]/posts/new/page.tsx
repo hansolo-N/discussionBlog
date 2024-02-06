@@ -1,7 +1,3 @@
-import React from "react";
-
-function createNewPost() {
-  return <div>new Post</div>;
+export default function PostCreatePost() {
+  return <div>Post Create Pag</div>;
 }
-
-export default createNewPost;

@@ -1,19 +1,19 @@
-"use server";
-import { revalidatePath } from "next/cache";
-import { Redirect } from "next";
-import { z } from "zod";
-import { db } from "@/db";
-import type { Post, Topic } from "@prisma/client";
-import paths from "@/paths";
-import { auth } from "@/auth";
-import { redirect } from "next/navigation";
+'use server';
+
+import type { Post } from '@prisma/client';
+import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
+import { z } from 'zod';
+import { auth } from '@/auth';
+import { db } from '@/db';
+import paths from '@/paths';
 
 const createPostSchema = z.object({
   title: z.string().min(3),
   content: z.string().min(10),
 });
 
-interface createPostFormState {
+interface CreatePostFormState {
   errors: {
     title?: string[];
     content?: string[];
@@ -23,13 +23,12 @@ interface createPostFormState {
 
 export async function createPost(
   slug: string,
-  formState: createPostFormState,
+  formState: CreatePostFormState,
   formData: FormData
-): Promise<createPostFormState> {
-  //revalidate topic show page after creating post
+): Promise<CreatePostFormState> {
   const result = createPostSchema.safeParse({
-    title: formData.get("title"),
-    content: formData.get("content"),
+    title: formData.get('title'),
+    content: formData.get('content'),
   });
 
   if (!result.success) {
@@ -39,11 +38,10 @@ export async function createPost(
   }
 
   const session = await auth();
-
   if (!session || !session.user) {
     return {
       errors: {
-        _form: ["you must be signed in to create a post"],
+        _form: ['You must be signed in to do this'],
       },
     };
   }
@@ -55,12 +53,12 @@ export async function createPost(
   if (!topic) {
     return {
       errors: {
-        _form: ["cannot find topic"],
+        _form: ['Cannot find topic'],
       },
     };
   }
 
-  let post: Topic;
+  let post: Post;
   try {
     post = await db.post.create({
       data: {
@@ -80,7 +78,7 @@ export async function createPost(
     } else {
       return {
         errors: {
-          _form: ["Failed to create Post"],
+          _form: ['Failed to create post'],
         },
       };
     }

@@ -82,7 +82,7 @@ model Post {
 model Comment {
   id       String  @id @default(cuid())
   content  String
-  postId   String
+  postid   String
   userId   String
   parentId String?
 

@@ -7,20 +7,20 @@ import FormButton from "@/components/common/form-button";
 import * as actions from "@/actions";
 
 interface CommentCreateFormProps {
-  postId: string;
+  postid: string;
   parentId?: string;
   startOpen?: boolean;
 }
 
 export default function CommentCreateForm({
-  postId,
+  postid,
   parentId,
   startOpen,
 }: CommentCreateFormProps) {
   const [open, setOpen] = useState(startOpen);
   const ref = useRef<HTMLFormElement | null>(null);
   const [formState, action] = useFormState(
-    actions.createComment.bind(null, { postId, parentId }),
+    actions.createComment.bind(null, { postid, parentId }),
     { errors: {} }
   );
 

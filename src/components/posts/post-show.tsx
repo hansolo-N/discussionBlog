@@ -1,6 +1,20 @@
-interface PostShowProps {}
+import { db } from "@/db";
+import { notFound } from "next/navigation";
 
-export default function PostShow({}: PostShowProps) {
+interface PostShowProps {
+  postid: string;
+}
+
+export default async function PostShow({ postid }: PostShowProps) {
+  // console.log(postId);
+  const post = await db.post.findFirst({
+    where: { id: postid },
+  });
+
+  if (!post) {
+    notFound();
+  }
+
   return (
     <div className="m-4">
       <h1 className="text-2xl font-bold my-2">{post.title}</h1>

@@ -19,7 +19,7 @@ interface CreateCommentFormState {
 }
 
 export async function createComment(
-  { postId, parentId }: { postId: string; parentId?: string },
+  { postid, parentId }: { postid: string; parentId?: string },
   formState: CreateCommentFormState,
   formData: FormData
 ): Promise<CreateCommentFormState> {
@@ -46,7 +46,7 @@ export async function createComment(
     await db.comment.create({
       data: {
         content: result.data.content,
-        postId: postId,
+        postId: postid,
         parentId: parentId,
         userId: session.user.id,
       },
@@ -68,7 +68,7 @@ export async function createComment(
   }
 
   const topic = await db.topic.findFirst({
-    where: { posts: { some: { id: postId } } },
+    where: { posts: { some: { id: postid } } },
   });
 
   if (!topic) {
@@ -79,7 +79,7 @@ export async function createComment(
     };
   }
 
-  revalidatePath(paths.postShow(topic.slug, postId));
+  revalidatePath(paths.postShow(topic.slug, postid));
   return {
     errors: {},
     success: true,
